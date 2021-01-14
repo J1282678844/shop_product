@@ -34,4 +34,9 @@ public class AttrServiceImpl implements AttrService {
         map.put("list",list);
         return map;
     }
+
+    @Override
+    public void add(Attr attr) {
+        attrMapper.add(attr);
+    }
 }

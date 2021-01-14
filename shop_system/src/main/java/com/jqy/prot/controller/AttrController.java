@@ -1,13 +1,12 @@
 package com.jqy.prot.controller;
 
+import com.jqy.prot.model.po.Attr;
+import com.jqy.prot.model.po.Brand;
 import com.jqy.prot.model.vo.AttrVo;
 import com.jqy.prot.service.AttrService;
 import com.jqy.result.CommonsReturn;
 import com.jqy.result.ReturnCode;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Map;
@@ -33,6 +32,12 @@ public class AttrController {
         }
         Map list = attrService.getData(vo);
         return CommonsReturn.success(list);
+    }
+
+    @PostMapping("/add")
+    public CommonsReturn add(Attr attr){
+        attrService.add(attr);
+        return CommonsReturn.success();
     }
 
 }
