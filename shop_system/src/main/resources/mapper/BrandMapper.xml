@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jqy.prot.mapper.BrandMapper">
+
+    <!--查询总条数-->
+    <select id="getCount" parameterType="com.jqy.prot.model.vo.BrandVo" resultType="java.lang.Integer">
+        select count(*) from t_brand where 4=4
+        <if test="name != null and name !='' ">
+            and name like '%${name}%'
+        </if>
+    </select>
+
+    <!--查询分页数据-->
+    <select id="getData" parameterType="com.jqy.prot.model.vo.BrandVo" resultType="com.jqy.prot.model.po.Brand">
+        select * from t_brand where 3=3
+        <if test="name != null and name !='' ">
+            and name like '%${name}%'
+        </if>
+        limit ${size*(current-1)},#{size}
+    </select>
+
+    <!--新增-->
+    <insert id="add" parameterType="com.jqy.prot.model.po.Brand" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into t_brand (name,brandE,imgpath,brandDesc,ord,isDel,createDate,updateDate,author)
+        values (#{name},#{brandE},#{imgpath},#{brandDesc},#{ord},0,SYSDATE(),SYSDATE(),#{author})")
+    </insert>
+
+    <!--根据ID查询-->
+    <select id="getDataById" parameterType="java.lang.Integer" resultType="com.jqy.prot.model.po.Brand">
+        select * from t_brand where id = #{id}
+    </select>
+
+    <!--修改-->
+    <update id="update" parameterType="com.jqy.prot.model.po.Brand">
+        update t_brand set name=#{name},brandE=#{brandE},imgpath=#{imgpath},brandDesc=#{brandDesc},
+        ord=#{ord},isDel=#{isDel},updateDate=SYSDATE(),author=#{author}
+        where id = #{id}
+    </update>
+
+</mapper>
