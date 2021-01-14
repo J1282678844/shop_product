@@ -16,4 +16,6 @@ public interface AttrService {
     Map getData(AttrVo vo);
 
     void add(Attr attr);
+
+    Attr getDataById(Integer id);
 }

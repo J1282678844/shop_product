@@ -39,4 +39,9 @@ public class AttrServiceImpl implements AttrService {
     public void add(Attr attr) {
         attrMapper.add(attr);
     }
+
+    @Override
+    public Attr getDataById(Integer id) {
+        return attrMapper.getDataById(id);
+    }
 }

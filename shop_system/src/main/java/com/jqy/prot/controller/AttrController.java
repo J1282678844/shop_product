@@ -40,4 +40,10 @@ public class AttrController {
         return CommonsReturn.success();
     }
 
+    @GetMapping("getDataById")
+    public CommonsReturn getDataById(Integer id){
+        Attr attr = attrService.getDataById(id);
+        return CommonsReturn.success(attr);
+    }
+
 }
