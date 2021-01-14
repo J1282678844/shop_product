@@ -33,5 +33,11 @@
         select * from t_attr where id = #{id}
     </select>
 
+    <!--修改-->
+    <update id="update" parameterType="com.jqy.prot.model.po.Attr">
+        update t_attr set name=#{name},nameCH=#{nameCH},typeId=#{typeId},type=#{type},
+        isSKU=#{isSKU},isDel=#{isDel},updateDate=SYSDATE(),author=#{author}
+        where id = #{id}
+    </update>
 
 </mapper>

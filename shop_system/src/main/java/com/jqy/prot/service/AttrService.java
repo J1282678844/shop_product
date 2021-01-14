@@ -18,4 +18,6 @@ public interface AttrService {
     void add(Attr attr);
 
     Attr getDataById(Integer id);
+
+    void update(Attr attr);
 }
