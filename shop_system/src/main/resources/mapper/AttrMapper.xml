@@ -41,7 +41,7 @@
     </update>
 
     <!--逻辑删除-->
-    <update id="delete" parameterMap="java.lang.Integer">
+    <update id="delete" parameterType="java.lang.Integer">
         update t_attr set isDel=1 where id=#{id}
     </update>
 
