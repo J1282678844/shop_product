@@ -66,7 +66,7 @@ public class BrandController {
         return CommonsReturn.success();
     }
 
-    @DeleteMapping("delete")
+    @PostMapping("delete")
     public CommonsReturn delete(Integer id){
         brandService.delete(id);
         return CommonsReturn.success();
