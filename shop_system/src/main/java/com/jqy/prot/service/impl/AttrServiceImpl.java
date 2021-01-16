@@ -49,4 +49,9 @@ public class AttrServiceImpl implements AttrService {
     public void update(Attr attr) {
         attrMapper.update(attr);
     }
+
+    @Override
+    public void delete(Integer id) {
+        attrMapper.delete(id);
+    }
 }

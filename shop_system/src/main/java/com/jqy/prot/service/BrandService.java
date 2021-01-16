@@ -20,4 +20,6 @@ public interface BrandService {
     void add(Brand brand);
 
     void update(Brand brand);
+
+    void delete(Integer id);
 }

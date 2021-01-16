@@ -55,4 +55,10 @@ public class AttrController {
         return CommonsReturn.success();
     }
 
+    @DeleteMapping("delete")
+    public CommonsReturn delete(Integer id){
+        attrService.delete(id);
+        return CommonsReturn.success();
+    }
+
 }

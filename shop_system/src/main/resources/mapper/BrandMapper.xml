@@ -40,4 +40,9 @@
         where id = #{id}
     </update>
 
+    <!--逻辑删除-->
+    <update id="delete" parameterMap="java.lang.Integer">
+        update t_brand set isDel where id=#{id}
+    </update>
+
 </mapper>

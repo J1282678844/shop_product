@@ -66,6 +66,12 @@ public class BrandController {
         return CommonsReturn.success();
     }
 
+    @DeleteMapping("delete")
+    public CommonsReturn delete(Integer id){
+        brandService.delete(id);
+        return CommonsReturn.success();
+    }
+
     @RequestMapping("imgAdd")
     public String imgAdd(MultipartFile file, HttpServletRequest request) throws IOException {
         String realPath = request.getServletContext().getRealPath("/images");
