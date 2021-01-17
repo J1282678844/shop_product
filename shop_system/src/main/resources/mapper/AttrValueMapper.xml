@@ -16,6 +16,12 @@
         limit ${size*(current-1)},#{size}
     </select>
 
+    <!--新增-->
+    <insert id="add" parameterType="com.jqy.prot.model.po.AttrValue" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into t_attr_value (attrId,value,valueName,createDate,updateDate,author)
+        value (#{attrId},#{value},#{valueName},SYSDATE(),SYSDATE(),#{author})
+    </insert>
+
 
 
 </mapper>

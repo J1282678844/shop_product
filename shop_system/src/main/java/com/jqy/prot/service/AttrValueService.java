@@ -1,5 +1,6 @@
 package com.jqy.prot.service;
 
+import com.jqy.prot.model.po.AttrValue;
 import com.jqy.prot.model.vo.AttrValueVo;
 
 import java.util.Map;
@@ -13,4 +14,6 @@ import java.util.Map;
 
 public interface AttrValueService {
     Map getData(AttrValueVo vo);
+
+    void add(AttrValue value);
 }

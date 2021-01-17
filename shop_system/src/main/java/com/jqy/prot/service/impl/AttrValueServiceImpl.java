@@ -33,4 +33,10 @@ public class AttrValueServiceImpl implements AttrValueService {
         map.put("list",list);
         return map;
     }
+
+    @Override
+    public void add(AttrValue value) {
+        value.setAuthor("jqyang");
+        valueMapper.add(value);
+    }
 }

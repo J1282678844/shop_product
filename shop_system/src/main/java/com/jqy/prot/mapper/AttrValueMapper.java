@@ -16,4 +16,6 @@ public interface AttrValueMapper {
     Integer getCount(AttrValueVo vo);
 
     List<AttrValue> getData(AttrValueVo vo);
+
+    void add(AttrValue value);
 }
