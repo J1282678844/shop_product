@@ -44,4 +44,10 @@ public class AttrValueServiceImpl implements AttrValueService {
     public AttrValue getDataById(Integer id) {
         return valueMapper.getDataById(id);
     }
+
+    @Override
+    public void update(AttrValue value) {
+        value.setAuthor("jqyang");
+        valueMapper.update(value);
+    }
 }

@@ -47,4 +47,13 @@ public class AttrValueController {
         return CommonsReturn.success(value);
     }
 
+    @PostMapping("update")
+    public CommonsReturn update(AttrValue value){
+        if (value.getId() == null){
+            return CommonsReturn.error(ReturnCode.PARAM_ERROR);
+        }
+        valueService.update(value);
+        return CommonsReturn.success();
+    }
+
 }
