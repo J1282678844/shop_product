@@ -50,4 +50,9 @@ public class AttrValueServiceImpl implements AttrValueService {
         value.setAuthor("jqyang");
         valueMapper.update(value);
     }
+
+    @Override
+    public void delete(Integer id) {
+        valueMapper.delete(id);
+    }
 }

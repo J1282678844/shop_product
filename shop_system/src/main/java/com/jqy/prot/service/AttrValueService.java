@@ -20,4 +20,6 @@ public interface AttrValueService {
     AttrValue getDataById(Integer id);
 
     void update(AttrValue value);
+
+    void delete(Integer id);
 }

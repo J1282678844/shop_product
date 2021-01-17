@@ -22,4 +22,6 @@ public interface AttrValueMapper {
     AttrValue getDataById(Integer id);
 
     void update(AttrValue value);
+
+    void delete(Integer id);
 }
