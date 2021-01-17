@@ -28,5 +28,5 @@ public interface BrandMapper {
 
     void update(Brand brand);
 
-    void delete(Integer id);
+    void delete(Brand brand);
 }

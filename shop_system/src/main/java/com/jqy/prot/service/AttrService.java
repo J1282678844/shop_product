@@ -21,5 +21,5 @@ public interface AttrService {
 
     void update(Attr attr);
 
-    void delete(Integer id);
+    void delete(Attr attr);
 }

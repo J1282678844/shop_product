@@ -17,7 +17,7 @@
     <select id="getData" parameterType="com.jqy.prot.model.vo.BrandVo" resultType="com.jqy.prot.model.po.Brand">
         select * from t_brand where 3=3
         <if test="name != null and name !='' ">
-            and name like '%${name}%'
+            and name like concat('%',#{name},'%')
         </if>
         limit ${size*(current-1)},#{size}
     </select>
@@ -25,7 +25,7 @@
     <!--新增-->
     <insert id="add" parameterType="com.jqy.prot.model.po.Brand" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         insert into t_brand (name,brandE,imgpath,brandDesc,ord,isDel,createDate,updateDate,author)
-        values (#{name},#{brandE},#{imgpath},#{brandDesc},#{ord},0,SYSDATE(),SYSDATE(),#{author})
+        values (#{name},#{brandE},#{imgpath},#{brandDesc},#{ord},0,SYSDATE(),SYSDATE(),jqyang)
     </insert>
 
     <!--根据ID查询-->
@@ -41,8 +41,8 @@
     </update>
 
     <!--逻辑删除-->
-    <update id="delete" parameterType="java.lang.Integer">
-        update t_brand set isDel where id=#{id}
+    <update id="delete" parameterType="com.jqy.prot.model.po.Brand">
+        update t_brand set isDel=#{isDel} where id=#{id}
     </update>
 
 </mapper>

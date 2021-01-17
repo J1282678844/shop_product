@@ -50,13 +50,7 @@ public class BrandController {
         brandService.add(brand);
         return CommonsReturn.success();
     }
-/*
-*
-*
-*
-*
-*
-* */
+
     @PostMapping("update")
     public CommonsReturn update(Brand brand){
         if (brand.getId() == null){
@@ -67,27 +61,9 @@ public class BrandController {
     }
 
     @PostMapping("delete")
-    public CommonsReturn delete(Integer id){
-        brandService.delete(id);
+    public CommonsReturn delete(Brand brand){
+        brandService.delete(brand);
         return CommonsReturn.success();
-    }
-
-    @RequestMapping("imgAdd")
-    public String imgAdd(MultipartFile file, HttpServletRequest request) throws IOException {
-        String realPath = request.getServletContext().getRealPath("/images");
-        File f=new File(realPath);
-        if(f.exists()==false){
-            f.mkdir();
-        }
-        UUID uuid = UUID.randomUUID();
-        String originalFilename = file.getOriginalFilename();
-        int i = originalFilename.lastIndexOf(".");
-        String substring = originalFilename.substring(i);
-        String imgUrl=uuid+substring;
-        File imgFile=new File(realPath+"/"+imgUrl);
-        file.transferTo(imgFile);
-        String imgPath="http://192.168.1.119:8080/images"+"/"+imgUrl;
-        return imgPath;
     }
 
 }

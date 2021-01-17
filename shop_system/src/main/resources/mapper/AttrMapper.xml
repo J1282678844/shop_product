@@ -9,7 +9,7 @@
     <select id="getCount" parameterType="com.jqy.prot.model.vo.AttrVo" resultType="java.lang.Integer">
         select count(*) from t_attr where 4=4
         <if test="name != null and name !='' ">
-            and name like '%${name}%'
+            and name like concat('%',#{name},'%')
         </if>
     </select>
 
@@ -41,8 +41,8 @@
     </update>
 
     <!--逻辑删除-->
-    <update id="delete" parameterType="java.lang.Integer">
-        update t_attr set isDel=1 where id=#{id}
+    <update id="delete" parameterType="com.jqy.prot.model.po.Attr">
+        update t_attr set isDel=#{isDel} where id=#{id}
     </update>
 
 </mapper>

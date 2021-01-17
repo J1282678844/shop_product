@@ -21,5 +21,5 @@ public interface BrandService {
 
     void update(Brand brand);
 
-    void delete(Integer id);
+    void delete(Brand brand);
 }

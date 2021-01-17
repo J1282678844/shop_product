@@ -37,6 +37,7 @@ public class AttrServiceImpl implements AttrService {
 
     @Override
     public void add(Attr attr) {
+        attr.setAuthor("jqyang");
         attrMapper.add(attr);
     }
 
@@ -51,7 +52,7 @@ public class AttrServiceImpl implements AttrService {
     }
 
     @Override
-    public void delete(Integer id) {
-        attrMapper.delete(id);
+    public void delete(Attr attr) {
+        attrMapper.delete(attr);
     }
 }
