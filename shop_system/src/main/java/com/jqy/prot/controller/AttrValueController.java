@@ -41,4 +41,10 @@ public class AttrValueController {
         return CommonsReturn.success();
     }
 
+    @GetMapping("getDataById")
+    public CommonsReturn getDataById(Integer id){
+        AttrValue value = valueService.getDataById(id);
+        return CommonsReturn.success(value);
+    }
+
 }

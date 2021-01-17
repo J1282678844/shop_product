@@ -18,4 +18,6 @@ public interface AttrValueMapper {
     List<AttrValue> getData(AttrValueVo vo);
 
     void add(AttrValue value);
+
+    AttrValue getDataById(Integer id);
 }

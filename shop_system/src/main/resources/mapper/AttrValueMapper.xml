@@ -22,6 +22,11 @@
         value (#{attrId},#{value},#{valueName},SYSDATE(),SYSDATE(),#{author})
     </insert>
 
+    <!--根据ID查询-->
+    <select id="getDataById" parameterType="java.lang.Integer" resultType="com.jqy.prot.model.po.AttrValue">
+        select * from t_attr_value where id = #{id}
+    </select>
+
 
 
 </mapper>
