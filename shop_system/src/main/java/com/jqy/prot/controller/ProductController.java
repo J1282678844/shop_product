@@ -1,13 +1,11 @@
 package com.jqy.prot.controller;
 
+import com.jqy.prot.model.po.Product;
 import com.jqy.prot.model.vo.ProductVo;
 import com.jqy.prot.service.ProductService;
 import com.jqy.result.CommonsReturn;
 import com.jqy.result.ReturnCode;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Map;
@@ -33,6 +31,12 @@ public class ProductController {
         }
         Map list = productService.getData(vo);
         return CommonsReturn.success(list);
+    }
+
+    @PostMapping("/add")
+    public CommonsReturn add(Product product){
+        productService.add(product);
+        return CommonsReturn.success();
     }
 
 }

@@ -16,4 +16,6 @@ public interface ProductMapper {
     Integer getCount(ProductVo vo);
 
     List<Product> getData(ProductVo vo);
+
+    void add(Product product);
 }

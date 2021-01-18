@@ -22,6 +22,14 @@
         limit ${size*(current-1)},#{size}
     </select>
 
+    <!--新增-->
+    <insert id="add" parameterType="com.jqy.prot.model.po.Product" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into t_product
+        (name,title,brandId,productDecs,price,stocks,sort,isDel,createDate,updateDate,author)
+        values
+        (#{name},#{title},#{brandId},#{productDecs},#{price},#{stocks},#{sort},0,SYSDATE(),SYSDATE(),#{author})
+    </insert>
+
 
 
 </mapper>

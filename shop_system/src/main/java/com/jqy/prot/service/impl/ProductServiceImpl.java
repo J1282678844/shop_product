@@ -32,4 +32,10 @@ public class ProductServiceImpl implements ProductService {
         map.put("list",list);
         return map;
     }
+
+    @Override
+    public void add(Product product) {
+        product.setAuthor("jqyang");
+        productMapper.add(product);
+    }
 }

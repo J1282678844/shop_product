@@ -41,6 +41,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public void add(Brand brand) {
+        brand.setAuthor("jqyang");
         brandMapper.add(brand);
     }
 

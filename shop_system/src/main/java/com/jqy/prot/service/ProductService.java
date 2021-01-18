@@ -1,5 +1,6 @@
 package com.jqy.prot.service;
 
+import com.jqy.prot.model.po.Product;
 import com.jqy.prot.model.vo.ProductVo;
 
 import java.util.Map;
@@ -13,4 +14,6 @@ import java.util.Map;
 
 public interface ProductService {
     Map getData(ProductVo vo);
+
+    void add(Product product);
 }
