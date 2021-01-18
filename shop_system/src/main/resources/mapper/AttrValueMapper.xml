@@ -18,8 +18,8 @@
 
     <!--新增-->
     <insert id="add" parameterType="com.jqy.prot.model.po.AttrValue" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        insert into t_attr_value (attrId,value,valueName,createDate,updateDate,author)
-        value (#{attrId},#{value},#{valueName},SYSDATE(),SYSDATE(),#{author})
+        insert into t_attr_value (attrId,value,valueName,isDel,createDate,updateDate,author)
+        value (#{attrId},#{value},#{valueName},0,SYSDATE(),SYSDATE(),#{author})
     </insert>
 
     <!--根据ID查询-->
@@ -30,13 +30,13 @@
     <!--修改-->
     <update id="update" parameterType="com.jqy.prot.model.po.Attr">
         update t_attr_value set attrId=#{attrId},value=#{value},valueName=#{valueName},
-        updateDate=SYSDATE(),author=#{author}
+        isDel=#{isDel},updateDate=SYSDATE(),author=#{author}
         where id = #{id}
     </update>
 
-    <!--删除-->
-    <delete id="delete" parameterType="java.lang.Integer">
-        delete from t_attr_value where id = #{id}
-    </delete>
+    <!--逻辑删除-->
+    <update id="delete" parameterType="com.jqy.prot.model.po.AttrValue">
+        update t_attr_value set isDel=#{isDel} where id=#{id}
+    </update>
 
 </mapper>

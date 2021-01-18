@@ -56,9 +56,9 @@ public class AttrValueController {
         return CommonsReturn.success();
     }
 
-    @DeleteMapping("/delete")
-    public CommonsReturn delete(Integer id){
-        valueService.delete(id);
+    @PostMapping("delete")
+    public CommonsReturn delete(AttrValue value){
+        valueService.delete(value);
         return CommonsReturn.success();
     }
 

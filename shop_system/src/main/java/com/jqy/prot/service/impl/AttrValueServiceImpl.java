@@ -52,7 +52,7 @@ public class AttrValueServiceImpl implements AttrValueService {
     }
 
     @Override
-    public void delete(Integer id) {
-        valueMapper.delete(id);
+    public void delete(AttrValue value) {
+        valueMapper.delete(value);
     }
 }

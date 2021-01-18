@@ -22,6 +22,8 @@ public class AttrValue {
 
     private String valueName;
 
+    private Integer isDel;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date createDate;
@@ -62,6 +64,14 @@ public class AttrValue {
 
     public void setValueName(String valueName) {
         this.valueName = valueName;
+    }
+
+    public Integer getIsDel() {
+        return isDel;
+    }
+
+    public void setIsDel(Integer isDel) {
+        this.isDel = isDel;
     }
 
     public Date getCreateDate() {
