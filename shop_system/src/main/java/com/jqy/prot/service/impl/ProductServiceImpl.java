@@ -38,4 +38,9 @@ public class ProductServiceImpl implements ProductService {
         product.setAuthor("jqyang");
         productMapper.add(product);
     }
+
+    @Override
+    public Product getDataById(Integer id) {
+        return productMapper.getDataById(id);
+    }
 }

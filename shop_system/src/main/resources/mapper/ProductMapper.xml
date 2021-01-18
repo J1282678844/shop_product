@@ -30,6 +30,11 @@
         (#{name},#{title},#{brandId},#{productDecs},#{price},#{stocks},#{sort},0,SYSDATE(),SYSDATE(),#{author})
     </insert>
 
+    <!--根据ID查询-->
+    <select id="getDataById" parameterType="java.lang.Integer" resultType="com.jqy.prot.model.po.Product">
+        select * from t_product where id = #{id}
+    </select>
+
 
 
 </mapper>

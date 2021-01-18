@@ -39,4 +39,10 @@ public class ProductController {
         return CommonsReturn.success();
     }
 
+    @GetMapping("/getDataById")
+    public CommonsReturn getDataById(Integer id){
+        Product product = productService.getDataById(id);
+        return CommonsReturn.success(product);
+    }
+
 }

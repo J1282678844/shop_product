@@ -16,4 +16,6 @@ public interface ProductService {
     Map getData(ProductVo vo);
 
     void add(Product product);
+
+    Product getDataById(Integer id);
 }

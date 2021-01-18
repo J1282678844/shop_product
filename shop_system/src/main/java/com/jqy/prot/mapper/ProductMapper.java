@@ -18,4 +18,6 @@ public interface ProductMapper {
     List<Product> getData(ProductVo vo);
 
     void add(Product product);
+
+    Product getDataById(Integer id);
 }
