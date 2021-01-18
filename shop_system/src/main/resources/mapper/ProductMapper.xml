@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jqy.prot.mapper.ProductMapper">
+
+    <!--查询总条数-->
+    <select id="getCount" parameterType="com.jqy.prot.model.vo.ProductVo" resultType="java.lang.Integer">
+        select count(*) from t_product where 4=4
+        <if test="name != null and name !='' ">
+            and name like concat('%',#{name},'%')
+        </if>
+    </select>
+
+    <!--查询分页数据-->
+    <select id="getData" parameterType="com.jqy.prot.model.vo.ProductVo" resultType="com.jqy.prot.model.po.Product">
+        select * from t_product where 3=3
+        <if test="name != null and name !='' ">
+            and name like concat('%',#{name},'%')
+        </if>
+        limit ${size*(current-1)},#{size}
+    </select>
+
+
+
+</mapper>
