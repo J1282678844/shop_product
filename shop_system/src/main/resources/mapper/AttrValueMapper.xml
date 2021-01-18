@@ -7,12 +7,12 @@
 
     <!--查询总条数-->
     <select id="getCount" parameterType="com.jqy.prot.model.vo.AttrValueVo" resultType="java.lang.Integer">
-        select count(*) from t_attr_value
+        select count(*) from t_attr_value where attrId=#{attrId}
     </select>
 
     <!--查询分页数据-->
     <select id="getData" parameterType="com.jqy.prot.model.vo.AttrValueVo" resultType="com.jqy.prot.model.po.AttrValue">
-        SELECT * from t_attr_value
+        SELECT * from t_attr_value where attrId=#{attrId}
         limit ${size*(current-1)},#{size}
     </select>
 
