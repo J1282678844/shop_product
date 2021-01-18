@@ -50,5 +50,8 @@ public class ProductServiceImpl implements ProductService {
         productMapper.update(product);
     }
 
-
+    @Override
+    public void delete(Product product) {
+        productMapper.delete(product);
+    }
 }

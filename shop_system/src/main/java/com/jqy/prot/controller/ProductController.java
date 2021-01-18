@@ -54,6 +54,10 @@ public class ProductController {
         return CommonsReturn.success();
     }
 
-
+    @PostMapping("/delete")
+    public CommonsReturn delete(Product product){
+        productService.delete(product);
+        return CommonsReturn.success();
+    }
 
 }
