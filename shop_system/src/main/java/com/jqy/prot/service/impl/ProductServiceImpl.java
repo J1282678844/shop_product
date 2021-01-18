@@ -43,4 +43,12 @@ public class ProductServiceImpl implements ProductService {
     public Product getDataById(Integer id) {
         return productMapper.getDataById(id);
     }
+
+    @Override
+    public void update(Product product) {
+        product.setAuthor("jqyang");
+        productMapper.update(product);
+    }
+
+
 }

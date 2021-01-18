@@ -45,4 +45,15 @@ public class ProductController {
         return CommonsReturn.success(product);
     }
 
+    @PostMapping("/update")
+    public CommonsReturn update(Product product){
+        if (product.getId()==null){
+            return CommonsReturn.error(ReturnCode.PARAM_ERROR);
+        }
+        productService.update(product);
+        return CommonsReturn.success();
+    }
+
+
+
 }

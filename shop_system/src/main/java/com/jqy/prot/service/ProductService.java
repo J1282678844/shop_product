@@ -18,4 +18,7 @@ public interface ProductService {
     void add(Product product);
 
     Product getDataById(Integer id);
+
+    void update(Product product);
+
 }
