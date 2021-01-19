@@ -1,0 +1,22 @@
+<template>
+    <div>
+      <h1>商品管理</h1>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "Test",
+        data() {
+            return {}
+        },
+        methods: {},
+        mounted() {
+
+        }
+    }
+</script>
+
+<style scoped>
+
+</style>
