@@ -33,6 +33,11 @@
         select * from t_attr where id = #{id}
     </select>
 
+    <!--根据typeId查询属性-->
+    <select id="getDataByTypeId" parameterType="java.lang.Integer" resultType="com.jqy.prot.model.po.Attr">
+        select * from t_attr where typeId=#{typeId} and isDel=0
+    </select>
+
     <!--修改-->
     <update id="update" parameterType="com.jqy.prot.model.po.Attr">
         update t_attr set name=#{name},nameCH=#{nameCH},typeId=#{typeId},type=#{type},

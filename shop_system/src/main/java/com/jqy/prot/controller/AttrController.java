@@ -9,6 +9,7 @@ import com.jqy.result.ReturnCode;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -44,6 +45,12 @@ public class AttrController {
     public CommonsReturn getDataById(Integer id){
         Attr attr = attrService.getDataById(id);
         return CommonsReturn.success(attr);
+    }
+
+    @GetMapping("/getDataByTypeId")
+    public CommonsReturn getDataByTypeId(Integer typeId){
+        List<Attr> list = attrService.getDataByTypeId(typeId);
+        return CommonsReturn.success(list);
     }
 
     @PostMapping("update")

@@ -55,4 +55,10 @@ public class AttrServiceImpl implements AttrService {
     public void delete(Attr attr) {
         attrMapper.delete(attr);
     }
+
+    @Override
+    public List<Attr> getDataByTypeId(Integer typeId) {
+        List<Attr> list = attrMapper.getDataByTypeId(typeId);
+        return list;
+    }
 }

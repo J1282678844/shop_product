@@ -3,6 +3,7 @@ package com.jqy.prot.service;
 import com.jqy.prot.model.po.Attr;
 import com.jqy.prot.model.vo.AttrVo;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,4 +23,6 @@ public interface AttrService {
     void update(Attr attr);
 
     void delete(Attr attr);
+
+    List<Attr> getDataByTypeId(Integer typeId);
 }

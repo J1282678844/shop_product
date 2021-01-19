@@ -24,4 +24,6 @@ public interface AttrMapper {
     void update(Attr attr);
 
     void delete(Attr attr);
+
+    List<Attr> getDataByTypeId(Integer typeId);
 }
