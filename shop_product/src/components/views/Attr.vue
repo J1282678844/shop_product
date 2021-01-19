@@ -49,11 +49,11 @@
             <template slot-scope="scope">
               <el-button
                 type="primary" icon="el-icon-edit" circle
-                @click="handleEdit( scope.row)">
+                @click="handleEdit( scope.row)">编辑
               </el-button>
               <el-button
                 type="primary" icon="el-icon-search" circle
-                @click="showValueTableDiv(scope.row)">查看属性值
+                @click="showValueTableDiv(scope.row)">查看
               </el-button>
             </template>
           </el-table-column>
@@ -73,21 +73,21 @@
         </div>
       </div>
 
-      <!-------------------------------------属性新增弹框维护------------------------------------->
+      <!-------------------------------------------属性新增弹框维护----------------------------------------------->
       <el-dialog title="属性新增" :visible.sync="dialogAttrAdd" width="50%" v-if="dialogAttrAdd">
-        <el-form ref="addForm" :model="addForm" label-width="140px">
+        <el-form ref="addForm" :rules="attrRules" :model="addForm" label-width="140px">
           <el-form-item label="分类" prop="typeId">
-            <el-select v-model="addForm.typeId" placeholder="请选择分类">
+            <el-select v-model="addForm.typeId" clearable placeholder="请选择分类">
               <el-option v-for="item in types" :key="item.id" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="属性名称" prop="name">
+          <el-form-item label="属性名称" prop="nameCH">
             <el-input v-model="addForm.nameCH" size="small" style="width: 300px" clearable></el-input>
           </el-form-item>
           <el-form-item label="属性简称" prop="name">
             <el-input v-model="addForm.name" size="small" style="width: 300px" clearable></el-input>
           </el-form-item>
-          <el-form-item label="属性类型">
+          <el-form-item label="属性类型" prop="type">
             <el-radio-group v-model="addForm.type">
               <el-radio :label="0">下拉框</el-radio>
               <el-radio :label="1">单选框</el-radio>
@@ -95,7 +95,7 @@
               <el-radio :label="3">输入框</el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item label="是否SKU" prop="isDel">
+          <el-form-item label="是否SKU" prop="isSKU">
             <el-radio-group v-model="addForm.isSKU">
               <el-radio :label="0">是</el-radio>
               <el-radio :label="1">否</el-radio>
@@ -108,21 +108,21 @@
         </span>
       </el-dialog>
 
-      <!-------------------------------------属性修改弹框维护------------------------------------->
+      <!----------------------------------------------属性修改弹框维护------------------------------------------------->
       <el-dialog title="属性修改" :visible.sync="dialogAttrUpdate" width="50%" v-if="dialogAttrUpdate">
         <el-form ref="addForm" :model="updateForm" label-width="140px">
           <el-form-item label="分类" prop="typeId">
-            <el-select v-model="updateForm.typeId" placeholder="请选择分类">
+            <el-select v-model="updateForm.typeId" clearable placeholder="请选择分类">
               <el-option v-for="item in types" :key="item.id" :label="item.name" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="属性名称" prop="name">
+          <el-form-item label="属性名称" prop="nameCH">
             <el-input v-model="updateForm.nameCH" size="small" style="width: 300px" clearable></el-input>
           </el-form-item>
           <el-form-item label="属性简称" prop="name">
             <el-input v-model="updateForm.name" size="small" style="width: 300px" clearable></el-input>
           </el-form-item>
-          <el-form-item label="属性类型">
+          <el-form-item label="属性类型" prop="type">
             <el-radio-group v-model="updateForm.type">
               <el-radio :label="0">下拉框</el-radio>
               <el-radio :label="1">单选框</el-radio>
@@ -130,7 +130,7 @@
               <el-radio :label="3">输入框</el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item label="是否SKU" prop="isDel">
+          <el-form-item label="是否SKU" prop="isSKU">
             <el-radio-group v-model="updateForm.isSKU">
               <el-radio :label="0">是</el-radio>
               <el-radio :label="1">否</el-radio>
@@ -149,13 +149,14 @@
         </span>
       </el-dialog>
 
-      <!--------------------------------------属性值弹框列表------------------------------------------->
+      <!-------------------------------------------属性值弹框列表---------------------------------------------------->
       <el-dialog :title="valueTitle" :visible.sync="showValueTable" width="35%" center>
         <div class="handle-box">
           <el-button type="primary"
                      icon="el-icon-circle-plus"
                      class="handle-del mr10"
                      @click="addAttrValue"
+                     v-if="!showValueAddForm"
                      v-show="!showValueUpdateForm">
             属性值新增
           </el-button>
@@ -195,8 +196,8 @@
           ></el-pagination>
         </div>
 
-        <!----------------------------属性值的新增-------------------------------->
-        <el-form ref="valueAdd" :model="valueAdd" label-width="80px" v-if="showValueAddForm">
+        <!--------------------------------------------属性值的新增----------------------------------------------->
+        <el-form ref="valueAdd" :rules="valueRules" :model="valueAdd" label-width="80px" v-if="showValueAddForm">
           <el-form-item label="属性值" prop="value">
             <el-input v-model="valueAdd.value" size="small" style="width: 300px" clearable></el-input>
           </el-form-item>
@@ -209,8 +210,8 @@
           </el-form-item>
         </el-form>
 
-        <!----------------------------属性值的修改-------------------------------->
-        <el-form ref="valueUpdate" :model="valueUpdate" label-width="80px" v-if="showValueUpdateForm">
+        <!-----------------------------------------属性值的修改----------------------------------------------------->
+        <el-form ref="valueAdd" :model="valueUpdate" label-width="80px" v-if="showValueUpdateForm">
           <el-form-item label="属性值" prop="value">
             <el-input v-model="valueUpdate.value" size="small" style="width: 300px" clearable></el-input>
           </el-form-item>
@@ -240,23 +241,38 @@
     name: "Attr",
     data() {
       return {
-        /*---------属性---------*/
+        /*-------------------------------------------------属性-------------------------------------------------*/
         query: {
           name: "",
-          size: 2,
+          size: 5,
           current: 1
         },
         tableData: [],
-        pageSizes: [2, 5, 10, 15],
+        pageSizes: [5, 10, 15, 20],
         pageTotal: 0,
         dialogAttrAdd: false,
         dialogAttrUpdate: false,
         addForm: {
           typeId: "",
-          name: "",
           nameCH: "",
+          name: "",
           type: "",
           isSKU: ""
+        },
+        attrRules:{
+          nameCH: [
+            { required: true, message: '请输入属性名称', trigger: 'blur' },
+            { min: 3, max: 5, message: '长度在 2 到 8 个字符', trigger: 'blur' }
+          ],
+          name: [
+            { required: true, message: '请输入属性简称', trigger: 'blur' },
+          ],
+          type: [
+            { required: true, message: '请选择属性类型', trigger: 'change' }
+          ],
+          isSKU: [
+            { required: true, message: '请选择是否SKU', trigger: 'change' }
+          ],
         },
         updateForm: {
           typeId: "",
@@ -266,7 +282,7 @@
           isDel: "",
           isSKU: ""
         },
-        /*---------分类----------*/
+        /*-------------------------------------------------分类----------------------------------------------------*/
         typeData: [],
         typeName: "",
         types: [
@@ -277,21 +293,29 @@
           {"id": 16, name: "分类/电子产品/摄像机"},
           {"id": 17, name: "分类/电子产品/电脑"}*/
         ],
-        /*---------属性值---------*/
+        /*-------------------------------------------------属性值--------------------------------------------------*/
         search: {
-          size: 3,
+          size: 5,
           current: 1
         },
         valueTitle: "",
         valueData: [],
         showValueTable: false,
         showValueAddForm: false,
-        pageSizess: [3, 5, 7, 9],
+        pageSizess: [5, 10, 15, 20],
         pageTotals: 0,
         valueAdd: {
           attrId: "",
           value: "",
           valueName: "",
+        },
+        valueRules:{
+          value: [
+            { required: true, message: '请输入属性值', trigger: 'blur' },
+          ],
+          valueName: [
+            { required: true, message: '请输入值名称', trigger: 'blur' },
+          ],
         },
         showValueUpdateForm: false,
         valueUpdate: {
@@ -310,6 +334,8 @@
             var typeName = this.typeData[i].name;
           }
         }
+        this.showValueAddForm = false;
+        this.showValueUpdateForm = false;
         this.valueAdd.attrId = row.id;
         this.showValueTable = true;
         this.valueTitle = typeName + row.nameCH + "的属性值维护";
@@ -336,12 +362,20 @@
       //新增弹框
       addAttrValue() {
         this.showValueAddForm = true;
+        this.refreshFormValue();
       },
       //新增
       addValue() {
-        this.$axios.post("http://localhost:8080/api/attrValue/add", this.$qs.stringify(this.valueAdd)).then(res => {
-          this.showValueAddForm = false;
-          this.getValueData(this.valueAdd.attrId);
+        //取验证结果
+        this.$refs["valueAdd"].validate((valid) => {
+          if (valid){
+            this.$axios.post("http://localhost:8080/api/attrValue/add", this.$qs.stringify(this.valueAdd)).then(res => {
+              this.showValueAddForm = false;
+              this.refreshFormValue();
+              this.getValueData(this.valueAdd.attrId);
+              this.valueAdd = {};
+            })
+          }
         })
       },
       //修改弹框回显
@@ -368,6 +402,17 @@
         this.$set(this.search, 'current', 1);
         this.$set(this.search, 'size', val);
         this.getValueData();
+      },
+      //关闭dialog清空属性值新增表单
+      closeDialogValue() {
+        this.refreshFormValue();
+        this.dialogAttrAdd = false;
+        this.dialogAttrUpdate = false;
+      },
+      refreshFormValue() {
+        for (let key in this.valueAdd) {
+          this.valueAdd[key] = ""
+        }
       },
 
       /*-----------------------------------------------属性的函数----------------------------------------------------*/
@@ -469,10 +514,15 @@
       },
       //新增
       addAttrForm() {
-        this.$axios.post("http://localhost:8080/api/attr/add", this.$qs.stringify(this.addForm)).then(res => {
-          this.dialogAttrAdd = false;
-          this.refreshForm();
-          this.getData();
+        //取验证结果
+        this.$refs["addForm"].validate((valid) => {
+          if (valid){
+            this.$axios.post("http://localhost:8080/api/attr/add", this.$qs.stringify(this.addForm)).then(res => {
+              this.dialogAttrAdd = false;
+              this.refreshForm();
+              this.getData();
+            })
+          }
         })
       },
       //修改弹框回显
@@ -500,15 +550,15 @@
         this.$set(this.query, 'size', val);
         this.getData();
       },
-      //关闭dialog清空表单
+      //关闭dialog清空属性新增表单
       closeDialog() {
         this.refreshForm();
         this.dialogAttrAdd = false;
         this.dialogAttrUpdate = false;
       },
       refreshForm() {
-        for (let key in this.updateForm) {
-          this.updateForm[key] = ""
+        for (let key in this.addForm) {
+          this.addForm[key] = ""
         }
       }
     },
