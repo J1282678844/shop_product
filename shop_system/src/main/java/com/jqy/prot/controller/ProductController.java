@@ -34,8 +34,8 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    public CommonsReturn add(Product product){
-        productService.add(product);
+    public CommonsReturn add(Product product,String attr,String sku){
+        productService.add(product,attr,sku);
         return CommonsReturn.success();
     }
 

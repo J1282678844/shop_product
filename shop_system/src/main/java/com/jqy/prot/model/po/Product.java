@@ -22,11 +22,15 @@ public class Product {
 
     private Integer brandId;//品牌ID
 
+    private Integer typeId;//分类ID
+
     private String productDecs;//商品描述
 
     private Double price;//价格
 
     private Integer stocks;//库存
+
+    private String imgpath;//图片
 
     private Integer sort;//排序
 
@@ -41,6 +45,22 @@ public class Product {
     private Date updateDate;
 
     private String author;
+
+    public Integer getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(Integer typeId) {
+        this.typeId = typeId;
+    }
+
+    public String getImgpath() {
+        return imgpath;
+    }
+
+    public void setImgpath(String imgpath) {
+        this.imgpath = imgpath;
+    }
 
     public Integer getId() {
         return id;

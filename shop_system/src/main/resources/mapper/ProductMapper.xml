@@ -25,9 +25,9 @@
     <!--新增-->
     <insert id="add" parameterType="com.jqy.prot.model.po.Product" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         insert into t_product
-        (name,title,brandId,productDecs,price,stocks,sort,isDel,createDate,updateDate,author)
+        (name,title,brandId,typeId,productDecs,price,stocks,imgpath,sort,isDel,createDate,updateDate,author)
         values
-        (#{name},#{title},#{brandId},#{productDecs},#{price},#{stocks},#{sort},0,SYSDATE(),SYSDATE(),#{author})
+        (#{name},#{title},#{brandId},#{typeId},#{productDecs},#{price},#{stocks},#{imgpath},#{sort},0,SYSDATE(),SYSDATE(),#{author})
     </insert>
 
     <!--根据ID查询-->
@@ -37,8 +37,8 @@
 
     <!--修改-->
     <update id="update" parameterType="com.jqy.prot.model.po.Product">
-        update t_product set name=#{name},title=#{title},brandId=#{brandId},productDecs=#{productDecs},
-        price=#{price},stocks=#{stocks},sort=#{sort},isDel=#{isDel},updateDate=SYSDATE(),author=#{author}
+        update t_product set name=#{name},title=#{title},brandId=#{brandId},typeId=#{typeId},productDecs=#{productDecs},
+        price=#{price},stocks=#{stocks},imgpath=#{imgpath},sort=#{sort},isDel=#{isDel},updateDate=SYSDATE(),author=#{author}
         where id = #{id}
     </update>
 

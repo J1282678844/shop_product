@@ -15,11 +15,12 @@ import java.util.Map;
 public interface ProductService {
     Map getData(ProductVo vo);
 
-    void add(Product product);
+    void add(Product product, String attr, String sku);
 
     Product getDataById(Integer id);
 
     void update(Product product);
 
     void delete(Product product);
+
 }
