@@ -150,6 +150,7 @@
       </el-dialog>
 
       <!-------------------------------------------属性值弹框列表---------------------------------------------------->
+
       <el-dialog :title="valueTitle" :visible.sync="showValueTable" width="35%" center>
         <div class="handle-box">
           <el-button type="primary"
@@ -198,6 +199,7 @@
 
         <!--------------------------------------------属性值的新增----------------------------------------------->
         <el-form ref="valueAdd" :rules="valueRules" :model="valueAdd" label-width="80px" v-if="showValueAddForm">
+          <el-input type="hidden" v-model="valueAdd.attrId"></el-input>
           <el-form-item label="属性值" prop="value">
             <el-input v-model="valueAdd.value" size="small" style="width: 300px" clearable></el-input>
           </el-form-item>
@@ -212,6 +214,7 @@
 
         <!-----------------------------------------属性值的修改----------------------------------------------------->
         <el-form ref="valueAdd" :model="valueUpdate" label-width="80px" v-if="showValueUpdateForm">
+          <el-input type="hidden" v-model="valueUpdate.id"></el-input>
           <el-form-item label="属性值" prop="value">
             <el-input v-model="valueUpdate.value" size="small" style="width: 300px" clearable></el-input>
           </el-form-item>
@@ -262,7 +265,7 @@
         attrRules:{
           nameCH: [
             { required: true, message: '请输入属性名称', trigger: 'blur' },
-            { min: 3, max: 5, message: '长度在 2 到 8 个字符', trigger: 'blur' }
+            { min: 2, max: 8, message: '长度在 2 到 8 个字符', trigger: 'blur' }
           ],
           name: [
             { required: true, message: '请输入属性简称', trigger: 'blur' },
@@ -304,6 +307,7 @@
         showValueAddForm: false,
         pageSizess: [5, 10, 15, 20],
         pageTotals: 0,
+        attrId:"",
         valueAdd: {
           attrId: "",
           value: "",
@@ -319,6 +323,7 @@
         },
         showValueUpdateForm: false,
         valueUpdate: {
+          id:"",
           value: "",
           valueName: "",
           isDel: ""
@@ -336,7 +341,8 @@
         }
         this.showValueAddForm = false;
         this.showValueUpdateForm = false;
-        this.valueAdd.attrId = row.id;
+
+        this.attrId= row.id;
         this.showValueTable = true;
         this.valueTitle = typeName + row.nameCH + "的属性值维护";
         this.getValueData(row.id);
@@ -363,6 +369,8 @@
       addAttrValue() {
         this.showValueAddForm = true;
         this.refreshFormValue();
+        this.valueAdd.attrId=this.attrId;
+
       },
       //新增
       addValue() {
@@ -371,9 +379,7 @@
           if (valid){
             this.$axios.post("http://localhost:8080/api/attrValue/add", this.$qs.stringify(this.valueAdd)).then(res => {
               this.showValueAddForm = false;
-              this.refreshFormValue();
               this.getValueData(this.valueAdd.attrId);
-              this.valueAdd = {};
             })
           }
         })

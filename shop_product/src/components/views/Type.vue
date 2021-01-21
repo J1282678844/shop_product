@@ -88,7 +88,7 @@
         rules:{
           name: [
             { required: true, message: '请输入分类名称', trigger: 'blur' },
-            { min: 3, max: 5, message: '长度在 2 到 8 个字符', trigger: 'blur' }
+            { min: 2, max: 8, message: '长度在 2 到 8 个字符', trigger: 'blur' }
           ],
         },
         addCategoryByParentIdDialogVisible: false,
