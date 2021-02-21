@@ -6,6 +6,7 @@ import Type from "../components/views/Type";
 import Brand from "../components/views/Brand";
 import Attr from "../components/views/Attr";
 import AddProduct from "../components/views/AddProduct";
+import Product from "../components/views/Product";
 
 Vue.use(Router)
 
@@ -23,6 +24,11 @@ export default new Router({
             path: 'test',
             component: Test,
             meta: {title: '系统首页'}
+          },
+          {
+            path: 'product',
+            component: Product,
+            meta: {title: '商品列表'}
           },
           {
             path: 'addProduct',

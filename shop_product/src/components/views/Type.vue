@@ -189,7 +189,7 @@
           this.editCategoryByParentIdDialogVisible = false;
           location.reload();
         })
-      }
+      },
 
     },
     mounted() {

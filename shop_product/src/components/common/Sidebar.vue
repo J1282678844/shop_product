@@ -67,6 +67,10 @@ export default {
                 title: '商品管理',
                 subs: [
                   {
+                    index: 'product',
+                    title: '商品列表'
+                  },
+                  {
                     index: 'addProduct',
                     title: '新增商品'
                   },

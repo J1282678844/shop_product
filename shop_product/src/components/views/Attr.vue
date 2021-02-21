@@ -76,7 +76,7 @@
       <!-------------------------------------------属性新增弹框维护----------------------------------------------->
       <el-dialog title="属性新增" :visible.sync="dialogAttrAdd" width="50%" v-if="dialogAttrAdd">
         <el-form ref="addForm" :rules="attrRules" :model="addForm" label-width="140px">
-          <el-form-item label="分类" prop="typeId">
+          <el-form-item label="商品分类" prop="typeId">
             <el-select v-model="addForm.typeId" clearable placeholder="请选择分类">
               <el-option v-for="item in types" :key="item.id" :label="item.name" :value="item.id"></el-option>
             </el-select>
@@ -111,7 +111,7 @@
       <!----------------------------------------------属性修改弹框维护------------------------------------------------->
       <el-dialog title="属性修改" :visible.sync="dialogAttrUpdate" width="50%" v-if="dialogAttrUpdate">
         <el-form ref="addForm" :model="updateForm" label-width="140px">
-          <el-form-item label="分类" prop="typeId">
+          <el-form-item label="商品分类" prop="typeId">
             <el-select v-model="updateForm.typeId" clearable placeholder="请选择分类">
               <el-option v-for="item in types" :key="item.id" :label="item.name" :value="item.id"></el-option>
             </el-select>
@@ -263,6 +263,9 @@
           isSKU: ""
         },
         attrRules:{
+          typeId: [
+            { required: true, message: '请选择商品品牌', trigger: 'change' }
+          ],
           nameCH: [
             { required: true, message: '请输入属性名称', trigger: 'blur' },
             { min: 2, max: 8, message: '长度在 2 到 8 个字符', trigger: 'blur' }
@@ -448,13 +451,14 @@
       },
       //拼接name属性
       chandleName(node) {
-        debugger
         if (node.pId != 0) {
-          this.typeName += "/" + node.name;
-          for (let i = 0; i < this.typeData.length; i++) {
-            if (node.pid == this.typeData[i].id) {
-              this.chandleName(this.typeData[i]);
-              break;
+          if (node.id != 1){
+            this.typeName += "/" + node.name;
+            for (let i = 0; i < this.typeData.length; i++) {
+              if (node.pid == this.typeData[i].id) {
+                this.chandleName(this.typeData[i]);
+                break;
+              }
             }
           }
         } else {
@@ -575,6 +579,31 @@
   }
 </script>
 
-<style scoped>
-
+<style>
+  .handle-box {
+    margin-bottom: 20px;
+  }
+  .handle-select {
+    width: 120px;
+  }
+  .handle-input {
+    width: 300px;
+    display: inline-block;
+  }
+  .table {
+    width: 100%;
+    font-size: 14px;
+  }
+  .red {
+    color: #ff0000;
+  }
+  .mr10 {
+    margin-right: 10px;
+  }
+  .table-td-thumb {
+    display: block;
+    margin: auto;
+    width: 40px;
+    height: 40px;
+  }
 </style>
