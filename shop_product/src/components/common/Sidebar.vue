@@ -88,9 +88,20 @@ export default {
                   },
                 ]
               },
+              {
+                icon: 'el-icon-user-solid',
+                index: '2',
+                title: '用户管理',
+                subs: [
+                  {
+                    index: 'user',
+                    title: '用户列表'
+                  },
+                ]
+              },
                 {
                     icon: 'el-icon-lx-calendar',
-                    index: '3',
+                    index: '5',
                     title: '表单相关',
                     subs: [
                         {

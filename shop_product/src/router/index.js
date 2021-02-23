@@ -7,6 +7,8 @@ import Brand from "../components/views/Brand";
 import Attr from "../components/views/Attr";
 import AddProduct from "../components/views/AddProduct";
 import Product from "../components/views/Product";
+import Login from "../components/views/Login";
+import User from "../components/views/User";
 
 Vue.use(Router)
 
@@ -50,7 +52,17 @@ export default new Router({
             component: Attr,
             meta: {title: '属性管理'}
           },
+          {
+            path: 'user',
+            component: User,
+            meta: {title: '用户列表'}
+          },
         ]
-      }
+      },
+    {
+      path: '/login',
+      component: Login,
+      meta: {title: '用户登录'}
+    },
   ]
 })
