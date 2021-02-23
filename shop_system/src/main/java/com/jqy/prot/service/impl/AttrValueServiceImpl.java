@@ -35,6 +35,11 @@ public class AttrValueServiceImpl implements AttrValueService {
     }
 
     @Override
+    public List<AttrValue> getDataByAttrId(Integer attrId) {
+        return valueMapper.getDataByAttrId(attrId);
+    }
+
+    @Override
     public void add(AttrValue value) {
         value.setAuthor("jqyang");
         valueMapper.add(value);

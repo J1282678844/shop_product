@@ -1,6 +1,7 @@
 package com.jqy.prot.mapper;
 
 import com.jqy.prot.model.po.ProductAttrData;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -15,4 +16,8 @@ public interface ProductAttrDataMapper {
 
     void adds(List<ProductAttrData> paList);
 
+    List<ProductAttrData> queryProdectAttrByPid(Integer pid);
+
+    @Select("select * from t_product_attrdata where proId=#{pid}")
+    List<ProductAttrData> queryDataByProId(Integer pid);
 }

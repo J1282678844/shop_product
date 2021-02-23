@@ -11,6 +11,7 @@
         <if test="name != null and name !='' ">
             and name like concat('%',#{name},'%')
         </if>
+        order by id desc
     </select>
 
     <!--查询分页数据-->
@@ -19,6 +20,7 @@
         <if test="name != null and name !='' ">
             and name like '%${name}%'
         </if>
+        order by id desc
         limit ${size*(current-1)},#{size}
     </select>
 

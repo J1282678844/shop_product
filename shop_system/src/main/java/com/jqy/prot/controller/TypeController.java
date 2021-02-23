@@ -17,7 +17,7 @@ import java.util.Map;
  * @Version 1.0
  **/
 @RestController
-@CrossOrigin
+//@CrossOrigin
 @RequestMapping("/api/type")
 public class TypeController {
 

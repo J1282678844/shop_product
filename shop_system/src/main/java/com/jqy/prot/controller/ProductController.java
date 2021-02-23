@@ -17,7 +17,7 @@ import java.util.Map;
  * @Version 1.0
  **/
 @RestController
-@CrossOrigin
+//@CrossOrigin
 @RequestMapping("/api/product")
 public class ProductController {
 
@@ -58,6 +58,17 @@ public class ProductController {
     public CommonsReturn delete(Product product){
         productService.delete(product);
         return CommonsReturn.success();
+    }
+
+    //回想商品属性数据
+    @GetMapping("/queryProdectAttrByPid")
+    public CommonsReturn queryProdectAttrByPid(Integer pid){
+        return CommonsReturn.success(productService.queryProdectAttrByPid(pid));
+    }
+
+    @GetMapping("/querySKUckvalues")
+    public CommonsReturn querySKUckvalues(Integer pid){
+        return CommonsReturn.success(productService.querySKUckvalues(pid));
     }
 
 }

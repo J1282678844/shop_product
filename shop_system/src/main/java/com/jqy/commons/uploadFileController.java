@@ -1,4 +1,4 @@
-package com.jqy.prot.commons;
+package com.jqy.commons;
 
 import com.jqy.oss.OssUtil;
 import com.jqy.result.CommonsReturn;

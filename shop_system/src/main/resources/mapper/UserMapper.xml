@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jqy.admin.mapper.UserMapper">
+
+    <!--查询总条数-->
+    <select id="getCount" parameterType="com.jqy.admin.model.vo.UserVo" resultType="java.lang.Integer">
+        select count(*) from t_user where 4=4
+        <if test="name != null and name !='' ">
+            and name like concat('%',#{name},'%')
+        </if>
+        order by id desc
+    </select>
+
+    <!--查询分页数据-->
+    <select id="getData" parameterType="com.jqy.admin.model.vo.UserVo" resultType="com.jqy.admin.model.po.User">
+        select * from t_user where 3=3
+        <if test="name != null and name !='' ">
+            and name like '%${name}%'
+        </if>
+        order by id desc
+        limit ${size*(current-1)},#{size}
+    </select>
+
+    <!--新增-->
+    <insert id="add" parameterType="com.jqy.admin.model.po.User" useGeneratedKeys="true" keyProperty="id"
+            keyColumn="id">
+        insert into t_user
+        (name,realName,password,sex,phone,email,idCard,birthday,imgUrl,eduId,deptId,createDate,updateDate)
+        value
+        (#{name},#{realName},#{password},#{sex},#{phone},#{email},#{idCard},
+        #{birthday},#{imgUrl},#{eduId},#{deptId},SYSDATE(),SYSDATE())
+    </insert>
+
+    <!--根据ID查询-->
+    <select id="getDataById" parameterType="java.lang.Integer" resultType="com.jqy.admin.model.po.User">
+        select * from t_user where id = #{id}
+    </select>
+
+
+    <!--修改-->
+    <update id="update" parameterType="com.jqy.admin.model.po.User">
+        update t_user set name=#{name},realName=#{realName},sex=#{sex},phone=#{phone},
+        email=#{email},idCard=#{idCard},birthday=#{birthday},imgUrl=#{imgUrl},eduId=#{eduId},
+        deptId=#{deptId},updateDate=SYSDATE()
+        where id = #{id}
+    </update>
+
+    <!--删除-->
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from t_user where id=#{id}
+    </delete>
+
+    <!--根据用户名查询用户信息-->
+    <select id="login" parameterType="java.lang.String" resultType="com.jqy.admin.model.po.User">
+        select * from t_user where name=#{name}
+    </select>
+
+</mapper>

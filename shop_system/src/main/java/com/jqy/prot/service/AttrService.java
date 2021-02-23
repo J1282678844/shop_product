@@ -25,4 +25,6 @@ public interface AttrService {
     void delete(Attr attr);
 
     List<Attr> getDataByTypeId(Integer typeId);
+
+    Map queryAttrByTypeId(Integer typeId);
 }

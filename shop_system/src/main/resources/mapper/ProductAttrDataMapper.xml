@@ -12,5 +12,10 @@
             (#{a.proId},#{a.attrData},#{a.stocks},#{a.price})
         </foreach>
     </insert>
+    
+    <!--回显商品属性数据-->
+    <select id="queryProdectAttrByPid" parameterType="java.lang.Integer" resultType="com.jqy.prot.model.po.ProductAttrData">
+        select * from t_product_attrdata where proId=#{pid}
+    </select>
 
 </mapper>

@@ -19,7 +19,7 @@ import java.util.Map;
  * @Version 1.0
  **/
 @RestController
-@CrossOrigin
+//@CrossOrigin
 @RequestMapping("/api/attr")
 public class AttrController {
 
@@ -66,6 +66,12 @@ public class AttrController {
     public CommonsReturn delete(Attr attr){
         attrService.delete(attr);
         return CommonsReturn.success();
+    }
+
+    //根据TypeId查询  属性
+    @GetMapping("/queryAttrByTypeId")
+    public CommonsReturn queryAttrByTypeId(Integer typeId){
+        return CommonsReturn.success(attrService.queryAttrByTypeId(typeId));
     }
 
 }

@@ -1,8 +1,11 @@
 package com.jqy.prot.service;
 
 import com.jqy.prot.model.po.Product;
+import com.jqy.prot.model.po.ProductAttrData;
 import com.jqy.prot.model.vo.ProductVo;
+import com.jqy.result.ReturnCode;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,4 +26,7 @@ public interface ProductService {
 
     void delete(Product product);
 
+    List<ProductAttrData> queryProdectAttrByPid(Integer pid);
+
+    Map querySKUckvalues(Integer pid);
 }

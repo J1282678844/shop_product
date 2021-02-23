@@ -23,7 +23,7 @@ import java.util.UUID;
  * @Version 1.0
  **/
 @RestController
-@CrossOrigin
+//@CrossOrigin
 @RequestMapping("/api/brand")
 public class BrandController {
 

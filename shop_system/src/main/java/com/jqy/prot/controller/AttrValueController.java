@@ -19,7 +19,7 @@ import java.util.Map;
  * @Version 1.0
  **/
 @RestController
-@CrossOrigin
+//@CrossOrigin
 @RequestMapping("/api/attrValue")
 public class AttrValueController {
 
@@ -33,6 +33,11 @@ public class AttrValueController {
         }
         Map list = valueService.getData(vo);
         return CommonsReturn.success(list);
+    }
+
+    @GetMapping("/getDataByAid")
+    public CommonsReturn getDataByAttrId(Integer attrId){
+        return CommonsReturn.success(valueService.getDataByAttrId(attrId));
     }
 
     @PostMapping("/add")

@@ -8,13 +8,11 @@ import com.jqy.prot.model.po.Product;
 import com.jqy.prot.model.po.ProductAttrData;
 import com.jqy.prot.model.vo.ProductVo;
 import com.jqy.prot.service.ProductService;
+import com.jqy.result.ReturnCode;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @ClassName ProductServiceImpl
@@ -102,5 +100,63 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void delete(Product product) {
         productMapper.delete(product);
+    }
+
+    @Override
+    public List<ProductAttrData> queryProdectAttrByPid(Integer pid) {
+        return productAttrDataMapper.queryProdectAttrByPid(pid);
+    }
+
+    @Override
+    public Map querySKUckvalues(Integer pid) {
+        Map data=new HashMap();
+        //查询属性数据
+        List<ProductAttrData> productAttrDatas = productAttrDataMapper.queryDataByProId(pid);
+        //sku的数据  {"memsize":["32g"],"color":['红色','绿色'],"netType":'联通'}
+        Map skuData=new HashMap();
+        Map attrData=new HashMap();
+        Map tableData=new HashMap();
+        List <JSONObject> tableList=new ArrayList<>();
+//遍历所有数据
+        for (int i = 0; i <productAttrDatas.size() ; i++) {
+            //得到具体的一个属性数据
+            ProductAttrData attrDatas = productAttrDatas.get(i);
+            //判断此属性为那种属性
+            if(attrDatas.getPrice()!=null){ //是sku属性   这种判断不严谨
+                //得到对应数据的json字符串 {"memsize":"32G","pricess":111,"color":"红色","netType":"联通","storcks":111}
+                //得到对应数据的json字符串 {"memsize":"32G","pricess":111,"color":"红色","netType":"联通","storcks":111}
+                //将字符串转为json对象  引入fastjson工具类
+                JSONObject jsonObject = JSONObject.parseObject(attrDatas.getAttrData());
+                //遍历jsonobject
+                Set<Map.Entry<String, Object>> entries = jsonObject.entrySet();
+                for (Map.Entry<String, Object> entry : entries) {
+                    String key=entry.getKey();//color
+                    //判断skuData中是否有此属性
+                    Set values = (Set) skuData.get(key);
+                    if(values!=null){
+                        values.add(entry.getValue());
+                    }else{
+                        //创建一个set 集合
+                        Set valuesSet =new HashSet();
+                        valuesSet.add(entry.getValue());
+                        skuData.put(key,valuesSet);
+                    }
+                }
+                //表格属性放入list
+                tableList.add(jsonObject);
+            }else {
+                //得到对应数据的json字符串  {"factory":"苹果尝试"}
+                JSONObject obj=JSONObject.parseObject(attrDatas.getAttrData());
+                Set<Map.Entry<String, Object>> entries = obj.entrySet();
+                for (Map.Entry<String, Object> entry : entries) {
+                    attrData.put(entry.getKey(),entry.getValue());
+                }
+            }
+        }
+        //将sku 和attr 放入返回值中
+        data.put("skudata",skuData);
+        data.put("attrdata",attrData);
+        data.put("tableData",tableList);
+        return data;
     }
 }

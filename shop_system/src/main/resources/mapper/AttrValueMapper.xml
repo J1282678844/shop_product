@@ -8,12 +8,20 @@
     <!--查询总条数-->
     <select id="getCount" parameterType="com.jqy.prot.model.vo.AttrValueVo" resultType="java.lang.Integer">
         select count(*) from t_attr_value where attrId=#{attrId}
+        order by id desc
     </select>
 
     <!--查询分页数据-->
     <select id="getData" parameterType="com.jqy.prot.model.vo.AttrValueVo" resultType="com.jqy.prot.model.po.AttrValue">
         SELECT * from t_attr_value where attrId=#{attrId}
+        order by id desc
         limit ${size*(current-1)},#{size}
+    </select>
+
+    <!--查询所有数据-->
+    <select id="getDataByAttrId" parameterType="java.lang.Integer" resultType="com.jqy.prot.model.po.AttrValue">
+        SELECT * from t_attr_value where attrId=#{attrId}
+        order by id desc
     </select>
 
     <!--新增-->
