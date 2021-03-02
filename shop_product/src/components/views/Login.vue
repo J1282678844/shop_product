@@ -21,16 +21,56 @@
         <div class="login-btn">
           <el-button type="primary" @click="submitForm()">登录</el-button>
         </div>
-        <p class="login-tips">Tips : 用户名和密码随便填。</p>
+        <el-button size="mini" class="btn-add" @click="handleAdd()" style="margin-left: 20px">注册</el-button>
       </el-form>
     </div>
+    <!-- 注册弹出框 -->
+    <el-dialog title="用户注册" :visible.sync="editVisible" width="40%">
+      <el-form :model="userForm"
+               ref="userForm"
+               label-width="150px" size="small">
+        <el-form-item label="帐号：">
+          <el-input v-model="userForm.name" style="width: 250px"></el-input>
+        </el-form-item>
+        <el-form-item label="密码：">
+          <el-input v-model="userForm.password" placeholder="请输入密码" style="width: 250px" show-password></el-input>
+        </el-form-item>
+        <el-form-item label="姓名：">
+          <el-input v-model="userForm.realName" style="width: 250px"></el-input>
+        </el-form-item>
+        <el-form-item label="生日：">
+          <el-date-picker v-model="userForm.birthday" type="date" placeholder="选择日期"></el-date-picker>
+        </el-form-item>
+        <el-form-item label="体重：">
+          <el-input v-model="userForm.weight" style="width: 250px"></el-input>
+        </el-form-item>
+        <el-form-item label="头像：" prop="img">
+          <single-upload v-model="userForm.img"></single-upload>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+                <el-button @click="editVisible = false">取 消</el-button>
+                <el-button type="primary" @click="addUser">确 定</el-button>
+            </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+  import SingleUpload from "../SingleUpload";
+  //注册弹框
+  const defaultUser = {
+    name: "",
+    realName: "",
+    password: "",
+    img: "",
+    birthday: "",
+    weight: "",
+  };
 
   export default {
     name: "Login",
+    components: {SingleUpload},
     data() {
       //验证用户名
       var checkName = (rule, value, callback) => {
@@ -51,6 +91,8 @@
         }
       }
       return {
+        userForm: Object.assign({}, defaultUser),
+        editVisible: false,
         param: {
           name: 'dongdong',
           password: '123456',
@@ -67,13 +109,13 @@
           if (valid) {
             this.$axios.post("http://localhost:8080/admin/user/login",this.$qs.stringify(this.param)).then(res=>{
               console.log(res);
-              if(res.data.status == 200){
+              if(res.data.code == 200){
                 //将token 存入浏览器中
                 window.sessionStorage.setItem("user",JSON.stringify({"name":this.name,"token":res.data.data}));
                 this.$message.success('登录成功');
-                this.$router.push('/test');
+                this.$router.push('/');
               }else{
-                return this.$message.error('密码错误');
+                return this.$message.error('账号或密码错误');
               }
             })
           } else {
@@ -81,7 +123,22 @@
             return false;
           }
         });
-      }
+      },
+      //新增弹框
+      handleAdd() {
+        this.editVisible = true;
+        this.titleName = "用户新增";
+        this.userForm = Object.assign({}, defaultUser);
+      },
+      //新增
+      addUser(){
+        this.$axios.post("http://localhost:8080/admin/user/add",this.$qs.stringify(this.userForm)).then(res=>{
+          if (res.data.code == 200){
+            this.$message.success('注册成功');
+            this.editVisible = false;
+          }
+        })
+      },
     },
     mounted() {
     }
@@ -93,7 +150,7 @@
     position: relative;
     width: 100%;
     height: 100%;
-    background-image: url(../../assets/img/login-bg.jpg);
+    background-image: url(../../assets/img/agfgf.jpg);
     background-size: 100%;
   }
   .ms-title {

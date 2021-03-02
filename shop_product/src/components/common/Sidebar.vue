@@ -99,6 +99,11 @@ export default {
                   },
                 ]
               },
+              {
+                icon: 'el-icon-s-unfold',
+                index: 'logs',
+                title: '日志记录',
+              },
                 {
                     icon: 'el-icon-lx-calendar',
                     index: '5',

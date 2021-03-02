@@ -9,6 +9,7 @@ import AddProduct from "../components/views/AddProduct";
 import Product from "../components/views/Product";
 import Login from "../components/views/Login";
 import User from "../components/views/User";
+import Logs from "../components/views/Logs";
 
 Vue.use(Router)
 
@@ -56,6 +57,11 @@ export default new Router({
             path: 'user',
             component: User,
             meta: {title: '用户列表'}
+          },
+          {
+            path: 'logs',
+            component: Logs,
+            meta: {title: '日志列表'}
           },
         ]
       },

@@ -24,28 +24,29 @@ Vue.use(ElementUI, {
 axios.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么，例如加入token
   //获取浏览器中的token
+  //debugger
   let userInfo=window.sessionStorage.getItem("user"); //可能有没有值
   if(userInfo!=null){
     //将请求中加入token参数
     //将字符串转为json对象
     let token=JSON.parse(userInfo).token;
-    //axios中设置参数    get请求和post请求  get 设置在 config.params  post  config.data
-    if (config.method === 'post') { //判断是否为post请求
-      config.params = {
-        "token":token
-      }
-    } else if (config.method === 'get') {
-      config.params = {
-        "token": token
-      }
-    }
+    //设置token为每次请求都有的参数
+    config.params={
+      "token":token
+    };
   }
   console.log("发送请求了")
   return config;
-}, function (error) {
-  // 对请求错误做些什么
-  return Promise.reject(error);
 });
+
+//每次请求后的处理  如果是非法请求  跳转登陆页面
+axios.interceptors.response.use(config=>{
+  console.log("请求后");
+  if (config.data.code==6666){
+    router.push("/login");
+  }
+  return config;
+})
 
 //配置路由守卫
 router.beforeEach((to, from, next) => {

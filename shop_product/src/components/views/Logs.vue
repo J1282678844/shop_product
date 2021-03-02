@@ -3,7 +3,7 @@
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>
-          <i class="el-icon-lx-cascades"></i> 用户列表
+          <i class="el-icon-lx-cascades"></i> 日志记录
         </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
@@ -29,7 +29,7 @@
         <div style="margin-top: 15px">
           <el-form :inline="true" :model="query" size="small" label-width="140px">
             <el-form-item label="输入搜索：">
-              <el-input v-model="query.name" class="input-width" placeholder="帐号"
+              <el-input v-model="query.realName" class="input-width" placeholder="操作人姓名"
                         clearable>
               </el-input>
             </el-form-item>
@@ -38,51 +38,39 @@
       </el-card>
       <el-card class="operate-container" shadow="never">
         <i class="el-icon-tickets"></i>
-        <span>数据列表</span>
+        <span>日志列表</span>
       </el-card>
       <div class="table-container">
         <el-table ref="adminTable"
                   :data="tableData"
                   style="width: 100%;"
                   border>
-          <el-table-column label="编号" width="100" align="center">
-            <template slot-scope="scope">{{scope.row.id}}</template>
+          <el-table-column label="操作人ID" width="70" align="center">
+            <template slot-scope="scope">{{scope.row.userId}}</template>
           </el-table-column>
-          <el-table-column label="帐号" align="center">
-            <template slot-scope="scope">{{scope.row.name}}</template>
-          </el-table-column>
-          <el-table-column label="姓名" align="center">
+          <el-table-column label="操作人姓名" width="90" align="center">
             <template slot-scope="scope">{{scope.row.realName}}</template>
           </el-table-column>
-          <el-table-column label="头像" align="center">
-            <template slot-scope="scope">
-              <el-image
-                class="table-td-thumb"
-                :src="scope.row.img"
-                :preview-src-list="[scope.row.img]"
-              ></el-image>
-            </template>
+          <el-table-column label="操作时间" width="140" align="center">
+            <template slot-scope="scope">{{scope.row.createTime}}</template>
           </el-table-column>
-          <el-table-column label="生日" align="center">
-            <template slot-scope="scope">{{scope.row.birthday}}</template>
+          <el-table-column label="状态" width="50" align="center" :formatter="isType">
+            <template slot-scope="scope">{{scope.row.type}}</template>
           </el-table-column>
-          <el-table-column label="体重" align="center">
-            <template slot-scope="scope">{{scope.row.weight}}</template>
+          <el-table-column label="访问的类路径" width="180" align="center" show-overflow-tooltip>
+            <template slot-scope="scope">{{scope.row.classname}}</template>
           </el-table-column>
-          <el-table-column label="添加时间" width="160" align="center">
-            <template slot-scope="scope">{{scope.row.createDate}}</template>
+          <el-table-column label="访问的方法名" width="100" align="center">
+            <template slot-scope="scope">{{scope.row.methodName}}</template>
           </el-table-column>
-          <el-table-column label="操作" width="180" align="center">
-            <template slot-scope="scope">
-              <el-button size="mini"
-                         type="text"
-                         @click="handleUpdate(scope.row)">编辑
-              </el-button>
-              <el-button size="mini"
-                         type="text"
-                         @click="handleDelete(scope.row)">删除
-              </el-button>
-            </template>
+          <el-table-column label="访问的参数" width="160" align="center" show-overflow-tooltip>
+            <template slot-scope="scope">{{scope.row.args}}</template>
+          </el-table-column>
+          <el-table-column label="描述信息" width="120" align="center" show-overflow-tooltip>
+            <template slot-scope="scope">{{scope.row.describeInfo}}</template>
+          </el-table-column>
+          <el-table-column label="异常信息" align="center" show-overflow-tooltip>
+            <template slot-scope="scope">{{scope.row.errorInfo}}</template>
           </el-table-column>
         </el-table>
         <div class="pagination-container">
@@ -100,7 +88,7 @@
       </div>
     </div>
     <!-- 编辑弹出框 -->
-    <el-dialog title="修改用户信息" :visible.sync="editVisible" width="40%">
+    <!--<el-dialog title="修改用户信息" :visible.sync="editVisible" width="40%">
       <el-form :model="userForm"
                ref="userForm"
                label-width="150px" size="small">
@@ -124,82 +112,43 @@
                 <el-button @click="editVisible = false">取 消</el-button>
                 <el-button type="primary" @click="updateUser">确 定</el-button>
             </span>
-    </el-dialog>
+    </el-dialog>-->
   </div>
 </template>
 
 <script>
-    import SingleUpload from "../SingleUpload";
     //查询的重置
     const resetQuery = {
-      name:"",
+      realName:"",
       current:1,
       size:3
     };
     export default {
         name: "User",
-        components: {SingleUpload},
         data() {
             return {
               query:Object.assign({},resetQuery),
-              userForm: {
+              /*userForm: {
                 name: "",
                 realName: "",
                 password: "",
                 img: "",
                 birthday: "",
                 weight: "",
-              },
+              },*/
               tableData: [],
               pageSizes: [3, 10, 15, 20],
-              editVisible: false,
               pageTotal: 0,
+              editVisible: false,
               titleName: "",
             }
         },
         methods: {
-
-          //修改弹框  回显
-          handleUpdate(row) {
-            let id = row.id;
-            this.$axios.get("http://localhost:8080/admin/user/getDataById?id="+id).then(res => {
-              this.userForm = res.data.data;
-              this.editVisible = true;
-            })
-          },
-          //修改
-          updateUser(){
-            this.$axios.post("http://localhost:8080/admin/user/update",this.$qs.stringify(this.userForm)).then(res=>{
-              if (res.data.code == 200){
-                this.editVisible = false;
-                this.getData();
-              }
-            })
-          },
-          //删除
-          handleDelete(row) {
-            let id = row.id;
-            this.$confirm('是否要删除该用户?', '提示', {
-              confirmButtonText: '确定',
-              cancelButtonText: '取消',
-              type: 'warning'
-            }).then(() => {
-              this.$axios.get("http://localhost:8080/admin/user/delete?id="+id).then(res => {
-                console.log(res)
-                if (res.data.code == 200) {
-                  this.$message({
-                    type: 'success',
-                    message: '删除成功!'
-                  });
-                  this.getData();
-                }
-              });
-            });
-          },
           //查询用户
           getData(){
-            this.$axios.get("http://localhost:8080/admin/user/getData?current=" + this.query.current + "&size=" + this.query.size + "&name=" + this.query.name).then(res=>{
-              this.tableData = res.data.data.list;
+            this.$axios.get("http://localhost:8080/admin/logs/getData?current=" + this.query.current + "&size=" + this.query.size + "&realName=" + this.query.realName).then(res=>{
+              console.log(res);
+              this.tableData = res.data.data.data;
               this.pageTotal = res.data.data.count;
             })
           },
@@ -212,7 +161,10 @@
           handleResetSearch() {
             this.query = Object.assign({}, resetQuery);
           },
-
+          //初始化状态
+          isType(row,column) {
+            return row.type == 1 ? "正常" : "异常";
+          },
           //上下页改变
           handlePageChange(val) {
             this.$set(this.query, 'current', val);
