@@ -23,5 +23,5 @@ public interface UserService {
 
     void delete(Integer id);
 
-    Map login(String name, String password);
+    User login(String name);
 }

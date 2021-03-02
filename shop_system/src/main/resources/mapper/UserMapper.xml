@@ -28,10 +28,9 @@
     <insert id="add" parameterType="com.jqy.admin.model.po.User" useGeneratedKeys="true" keyProperty="id"
             keyColumn="id">
         insert into t_user
-        (name,realName,password,sex,phone,email,idCard,birthday,imgUrl,eduId,deptId,createDate,updateDate)
+        (name,realName,password,img,birthday,weight,createDate)
         value
-        (#{name},#{realName},#{password},#{sex},#{phone},#{email},#{idCard},
-        #{birthday},#{imgUrl},#{eduId},#{deptId},SYSDATE(),SYSDATE())
+        (#{name},#{realName},#{password},#{img},#{birthday},#{weight},SYSDATE())
     </insert>
 
     <!--根据ID查询-->
@@ -42,9 +41,7 @@
 
     <!--修改-->
     <update id="update" parameterType="com.jqy.admin.model.po.User">
-        update t_user set name=#{name},realName=#{realName},sex=#{sex},phone=#{phone},
-        email=#{email},idCard=#{idCard},birthday=#{birthday},imgUrl=#{imgUrl},eduId=#{eduId},
-        deptId=#{deptId},updateDate=SYSDATE()
+        update t_user set name=#{name},realName=#{realName},img=#{img},birthday=#{birthday},weight=#{weight}
         where id = #{id}
     </update>
 

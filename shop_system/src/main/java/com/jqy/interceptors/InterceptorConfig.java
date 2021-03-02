@@ -28,6 +28,9 @@ public class InterceptorConfig implements WebMvcConfigurer {
         //设置拦截的路径
         registration.addPathPatterns("/**");
         //设置不拦截的路径
-        registration.excludePathPatterns("/admin/user/login");
+        registration.excludePathPatterns(
+                "/admin/user/login",
+                "/uploadPhoto"
+        );
     }
 }

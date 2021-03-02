@@ -1,5 +1,6 @@
 package com.jqy.prot.controller;
 
+import com.jqy.aop.LogsAnnotation;
 import com.jqy.prot.model.po.Attr;
 import com.jqy.prot.model.po.Brand;
 import com.jqy.prot.model.vo.AttrVo;
@@ -35,6 +36,7 @@ public class AttrController {
         return CommonsReturn.success(list);
     }
 
+    @LogsAnnotation("商品属性新增")
     @PostMapping("/add")
     public CommonsReturn add(Attr attr){
         attrService.add(attr);
@@ -53,6 +55,7 @@ public class AttrController {
         return CommonsReturn.success(list);
     }
 
+    @LogsAnnotation("商品属性修改")
     @PostMapping("update")
     public CommonsReturn update(Attr attr){
         if (attr.getId() == null){
@@ -62,6 +65,7 @@ public class AttrController {
         return CommonsReturn.success();
     }
 
+    @LogsAnnotation("商品属性删除")
     @PostMapping("delete")
     public CommonsReturn delete(Attr attr){
         attrService.delete(attr);

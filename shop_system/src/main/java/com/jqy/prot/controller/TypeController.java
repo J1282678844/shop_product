@@ -1,5 +1,6 @@
 package com.jqy.prot.controller;
 
+import com.jqy.aop.LogsAnnotation;
 import com.jqy.prot.model.po.Type;
 import com.jqy.prot.service.TypeService;
 import com.jqy.result.CommonsReturn;
@@ -36,12 +37,14 @@ public class TypeController {
         return CommonsReturn.success(type);
     }
 
+    @LogsAnnotation("商品类型新增")
     @PostMapping("add")
     public CommonsReturn add(Type type){
         Integer id = typeService.add(type);
         return CommonsReturn.success(id);
     }
 
+    @LogsAnnotation("商品类型修改")
     @PostMapping("update")
     public CommonsReturn update(Type type){
         if (type.getId() == null){

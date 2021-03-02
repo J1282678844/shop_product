@@ -1,5 +1,6 @@
 package com.jqy.prot.controller;
 
+import com.jqy.aop.LogsAnnotation;
 import com.jqy.prot.model.po.Brand;
 import com.jqy.prot.model.po.Type;
 import com.jqy.prot.model.vo.BrandVo;
@@ -45,12 +46,14 @@ public class BrandController {
         return CommonsReturn.success(brand);
     }
 
+    @LogsAnnotation("商品品牌新增")
     @PostMapping("add")
     public CommonsReturn add(Brand brand){
         brandService.add(brand);
         return CommonsReturn.success();
     }
 
+    @LogsAnnotation("商品品牌修改")
     @PostMapping("update")
     public CommonsReturn update(Brand brand){
         if (brand.getId() == null){
@@ -60,6 +63,7 @@ public class BrandController {
         return CommonsReturn.success();
     }
 
+    @LogsAnnotation("商品品牌删除")
     @PostMapping("delete")
     public CommonsReturn delete(Brand brand){
         brandService.delete(brand);

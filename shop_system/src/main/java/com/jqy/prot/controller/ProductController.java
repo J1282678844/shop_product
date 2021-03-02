@@ -1,5 +1,6 @@
 package com.jqy.prot.controller;
 
+import com.jqy.aop.LogsAnnotation;
 import com.jqy.prot.model.po.Product;
 import com.jqy.prot.model.vo.ProductVo;
 import com.jqy.prot.service.ProductService;
@@ -33,6 +34,7 @@ public class ProductController {
         return CommonsReturn.success(list);
     }
 
+    @LogsAnnotation("商品新增")
     @PostMapping("/add")
     public CommonsReturn add(Product product,String attr,String sku){
         productService.add(product,attr,sku);
@@ -45,6 +47,7 @@ public class ProductController {
         return CommonsReturn.success(product);
     }
 
+    @LogsAnnotation("商品修改")
     @PostMapping("/update")
     public CommonsReturn update(Product product){
         if (product.getId()==null){
@@ -54,6 +57,7 @@ public class ProductController {
         return CommonsReturn.success();
     }
 
+    @LogsAnnotation("商品删除")
     @PostMapping("/delete")
     public CommonsReturn delete(Product product){
         productService.delete(product);

@@ -1,5 +1,6 @@
 package com.jqy.prot.controller;
 
+import com.jqy.aop.LogsAnnotation;
 import com.jqy.prot.model.po.Attr;
 import com.jqy.prot.model.po.AttrValue;
 import com.jqy.prot.model.vo.AttrValueVo;
@@ -40,6 +41,7 @@ public class AttrValueController {
         return CommonsReturn.success(valueService.getDataByAttrId(attrId));
     }
 
+    @LogsAnnotation("商品属性值新增")
     @PostMapping("/add")
     public CommonsReturn add(AttrValue value){
         valueService.add(value);
@@ -52,6 +54,7 @@ public class AttrValueController {
         return CommonsReturn.success(value);
     }
 
+    @LogsAnnotation("商品属性值修改")
     @PostMapping("update")
     public CommonsReturn update(AttrValue value){
         if (value.getId() == null){
@@ -61,6 +64,7 @@ public class AttrValueController {
         return CommonsReturn.success();
     }
 
+    @LogsAnnotation("商品属性值删除")
     @PostMapping("delete")
     public CommonsReturn delete(AttrValue value){
         valueService.delete(value);

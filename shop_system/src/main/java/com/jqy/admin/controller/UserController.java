@@ -3,11 +3,15 @@ package com.jqy.admin.controller;
 import com.jqy.admin.model.po.User;
 import com.jqy.admin.model.vo.UserVo;
 import com.jqy.admin.service.UserService;
+import com.jqy.aop.LogsAnnotation;
 import com.jqy.result.CommonsReturn;
 import com.jqy.result.ReturnCode;
+import com.jqy.utils.JWT;
+import com.jqy.utils.MD5Util;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Base64;
 import java.util.Map;
 
 /**
@@ -33,6 +37,7 @@ public class UserController {
         return CommonsReturn.success(list);
     }
 
+    @LogsAnnotation("新增用户信息")
     @PostMapping("/add")
     public CommonsReturn add(User user) {
         userService.add(user);
@@ -45,6 +50,7 @@ public class UserController {
         return CommonsReturn.success(user);
     }
 
+    @LogsAnnotation("修改用户信息")
     @PostMapping("/update")
     public CommonsReturn update(User user) {
         if (user.getId() == null) {
@@ -54,16 +60,34 @@ public class UserController {
         return CommonsReturn.success();
     }
 
+    @LogsAnnotation("删除用户信息")
     @DeleteMapping("/delete")
     public CommonsReturn delete(Integer id) {
         userService.delete(id);
         return CommonsReturn.success();
     }
 
-    @PostMapping("/login")
-    public Map login(String name,String password){
-        Map map = userService.login(name,password);
-        return map;
+
+    @RequestMapping("/login")
+    public CommonsReturn login(String name, String password){
+        User user = userService.login(name);
+        if (user == null){
+            return CommonsReturn.error(ReturnCode.USERNAME_NOEXIST);
+        }
+        if (!user.getPassword().equals(MD5Util.getMD5(password))){
+            return CommonsReturn.error(ReturnCode.PASSWORD_ERROR);
+        }
+        //jwt 生成token令牌
+        String token = JWT.sign(user, 60 * 30);
+        //将token进行base64加密
+        Base64.Encoder encoder = Base64.getEncoder();
+        //设置加密信息 字节数组
+        byte[] userInfo = (name + "jqy" + token).getBytes();
+        //加密
+        byte[] encode = encoder.encode(userInfo);
+        //将字节数组 转为 字符串 返回
+        String tokenInfo = new String(encode);
+        return CommonsReturn.success(tokenInfo);
     }
 
 }

@@ -17,22 +17,14 @@ public class User {
     private String name;
     private String realName;
     private String password;
-    private Integer sex;
-    private String phone;
-    private String email;
-    private String idCard;
+    private String img;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date birthday;
-    private String imgUrl;
-    private Integer eduId;
-    private Integer deptId;
+    private Double weight;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date createDate;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date updateDate;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private String createDate;
 
     public Integer getId() {
         return id;
@@ -66,36 +58,12 @@ public class User {
         this.password = password;
     }
 
-    public Integer getSex() {
-        return sex;
+    public String getImg() {
+        return img;
     }
 
-    public void setSex(Integer sex) {
-        this.sex = sex;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getIdCard() {
-        return idCard;
-    }
-
-    public void setIdCard(String idCard) {
-        this.idCard = idCard;
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public Date getBirthday() {
@@ -106,43 +74,19 @@ public class User {
         this.birthday = birthday;
     }
 
-    public String getImgUrl() {
-        return imgUrl;
+    public Double getWeight() {
+        return weight;
     }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+    public void setWeight(Double weight) {
+        this.weight = weight;
     }
 
-    public Integer getEduId() {
-        return eduId;
-    }
-
-    public void setEduId(Integer eduId) {
-        this.eduId = eduId;
-    }
-
-    public Integer getDeptId() {
-        return deptId;
-    }
-
-    public void setDeptId(Integer deptId) {
-        this.deptId = deptId;
-    }
-
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
-    }
-
-    public Date getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
     }
 }

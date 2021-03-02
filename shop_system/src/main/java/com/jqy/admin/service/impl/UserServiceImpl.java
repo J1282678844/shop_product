@@ -58,25 +58,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map login(String name, String password) {
-        Map map = new HashMap();
-        //根据用户名查询用户信息
-        User user = userMapper.login(name);
-        if (user != null){
-            if (user.getPassword().equals(MD5Util.getMD5(password))){
-                String token = JWT.sign(user, 60 * 30);
-                map.put("status",200);
-                map.put("data",token);
-            }else {
-                map.put("status",401);
-                map.put("massage","密码错误");
-                return map;
-            }
-        }else {
-            map.put("status",402);
-            map.put("massage","用户名不存在");
-            return map;
-        }
-        return map;
+    public User login(String name) {
+        return userMapper.login(name);
     }
 }
